@@ -19,11 +19,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.abhi.alleimageviewer.MainViewModel
 import com.abhi.alleimageviewer.R
 import com.abhi.alleimageviewer.ui.theme.AlleImageViewerTheme
 
 @Composable
-fun PictureScreen(navController: NavController) {
+fun PictureScreen(viewModel: MainViewModel,
+                  navController: NavController) {
     AlleImageViewerTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),

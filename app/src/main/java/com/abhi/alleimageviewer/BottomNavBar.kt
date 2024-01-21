@@ -19,7 +19,7 @@ import com.abhi.alleimageviewer.screens.DetailScreen
 import com.abhi.alleimageviewer.screens.PictureScreen
 
 @Composable
-fun BottomNavigationBar() {
+fun BottomNavigationBar(viewModel: MainViewModel) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -59,11 +59,13 @@ fun BottomNavigationBar() {
             modifier = Modifier.padding(paddingValues = paddingValues)) {
             composable(Screens.Pictures.route) {
                 PictureScreen(
+                    viewModel,
                     navController
                 )
             }
             composable(Screens.Details.route) {
                 DetailScreen(
+                    viewModel,
                     navController
                 )
             }
