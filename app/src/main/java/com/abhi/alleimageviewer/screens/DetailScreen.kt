@@ -1,31 +1,61 @@
 package com.abhi.alleimageviewer.screens
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.abhi.alleimageviewer.MainViewModel
+import com.abhi.alleimageviewer.MediaState
 import com.abhi.alleimageviewer.R
 import com.abhi.alleimageviewer.ui.theme.AlleImageViewerTheme
+import java.io.File
 
 @Composable
 fun DetailScreen(viewModel: MainViewModel,
                  navController: NavController) {
+
+    val state = viewModel.uiState.collectAsState().value
+    val mlState = viewModel.mlState.collectAsState().value
+
     AlleImageViewerTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -34,30 +64,56 @@ fun DetailScreen(viewModel: MainViewModel,
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(15.dp),
+                    .padding(horizontal = 16.dp)
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(250.dp)
-                        .padding(horizontal = 15.dp, vertical = 10.dp)
-                        .clip(MaterialTheme.shapes.large)
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_launcher_background),
-                        contentDescription = "search_screen_bg",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
+
+                Column(Modifier.height(400.dp)) {
+                    ImageView(state = state)
                 }
-                Text(
-                    "Search Screen",
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(vertical = 20.dp)
-                )
+                Column() {
+                    TextFieldExample()
+
+                    Text(stringResource(id = R.string.collections),
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(vertical = 8.dp))
+
+                    LazyRow(Modifier.padding(8.dp)) {
+                        itemsIndexed(mlState.labelList) { index,item ->
+                            Text(item.text,
+                                fontWeight = FontWeight.Light,
+                                fontSize = 16.sp, modifier = Modifier.padding(10.dp),
+                                 style = TextStyle(background = Color.Yellow))
+
+                        }
+                    }
+
+                    Text(stringResource(id = R.string.Description),
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(vertical = 8.dp))
+
+                    Text(mlState.text,
+                        fontWeight = FontWeight.Light,
+                        fontSize = 16.sp, modifier = Modifier.padding(10.dp))
+
+
+                }
+
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TextFieldExample() {
+    var textInput by remember { mutableStateOf("")}
+    OutlinedTextField(value = textInput, onValueChange = {textInput = it},
+        label = { Text(stringResource(id = R.string.add_a_note))},
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp))
 }

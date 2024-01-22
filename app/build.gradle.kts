@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -51,8 +53,7 @@ android {
 
 dependencies {
 
-    annotationProcessor("com.google.dagger:hilt-compiler:2.50")
-    implementation("com.google.dagger:hilt-android-compiler:2.50")
+    kapt("com.google.dagger:hilt-compiler:2.50")
     implementation("com.google.dagger:hilt-android:2.50")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
@@ -63,7 +64,11 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    implementation("pub.devrel:easypermissions:3.0.0")
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("com.google.mlkit:image-labeling:17.0.7")
+    implementation("com.google.mlkit:text-recognition:16.0.0")
+
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

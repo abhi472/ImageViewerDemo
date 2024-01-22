@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class ImageListUseCase @Inject constructor(private val repository: ImageListRepository){
 
-    suspend operator fun invoke(): Flow<List<File>> =  flow {
-        repository.getAllImages()
+    suspend operator fun invoke() =  flow {
+        emit(repository.getAllImages())
     }
 
 

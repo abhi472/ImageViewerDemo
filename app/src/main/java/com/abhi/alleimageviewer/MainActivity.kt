@@ -16,12 +16,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import com.abhi.alleimageviewer.ui.theme.AlleImageViewerTheme
-import pub.devrel.easypermissions.EasyPermissions
-import java.io.File
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
 
 
@@ -40,27 +40,8 @@ class MainActivity : ComponentActivity() {
         }
 
 
-       // imageReaderNew(fullPath)
     }
 
-
-
-
-    @Composable
-    fun Greeting(name: String, modifier: Modifier = Modifier) {
-        Text(
-            text = "Hello $name!",
-            modifier = modifier
-        )
-    }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun GreetingPreview() {
-        AlleImageViewerTheme {
-            Greeting("Android")
-        }
-    }
 
 
 }
