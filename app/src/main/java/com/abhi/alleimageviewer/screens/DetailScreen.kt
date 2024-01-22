@@ -105,6 +105,7 @@ fun DetailScreen(
                     LazyRow(Modifier.padding(8.dp)) {
                         itemsIndexed(mlState.labelList) { index,item ->
                             InputChip(
+                                modifier = Modifier.padding(horizontal = 6.dp), // gap between items
                                 selected = true,
                                 onClick = {
                                 },

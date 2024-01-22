@@ -3,7 +3,9 @@ package com.abhi.alleimageviewer.common
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -66,8 +68,8 @@ fun BottomSheetLayout(viewModel: MainViewModel) {
         sheetShape = RoundedCornerShape(topStart = roundedCornerRadius, topEnd = roundedCornerRadius),
         sheetContent = {
             Column(
-                modifier = modifier,
-                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = modifier.padding(16.dp),
+                horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center,
             ) {
                 Text(
@@ -80,6 +82,7 @@ fun BottomSheetLayout(viewModel: MainViewModel) {
                 LazyRow(Modifier.padding(8.dp)) {
                     itemsIndexed(mlState.labelList) { index,item ->
                         InputChip(
+                            modifier = Modifier.padding(horizontal = 6.dp), // gap between items
                             selected = true,
                             onClick = {
                             },
@@ -104,6 +107,7 @@ fun BottomSheetLayout(viewModel: MainViewModel) {
                 LazyRow(Modifier.padding(8.dp)) {
                     itemsIndexed(viewModel.getMockList()) { index,item ->
                         InputChip(
+                            modifier = Modifier.padding(horizontal = 6.dp), // gap between items
                             selected = true,
                             onClick = {
                             },
@@ -118,16 +122,22 @@ fun BottomSheetLayout(viewModel: MainViewModel) {
                     }
                 }
 
-                Button(onClick = {
-                    coroutineScope.launch {
-                        if (modalSheetState.isVisible)
-                            modalSheetState.hide()
-                        else
-                            modalSheetState.show()
+                Spacer(modifier = Modifier.padding(vertical =64.dp))
+
+                Box (Modifier.align(Alignment.CenterHorizontally)){
+                    Button(
+                        onClick = {
+                            coroutineScope.launch {
+                                if (modalSheetState.isVisible)
+                                    modalSheetState.hide()
+                                else
+                                    modalSheetState.show()
+                            }
+                        },
+                        Modifier.padding(horizontal = 36.dp)
+                    ) {
+                        Text(text = stringResource(id = R.string.done), color = Color.White)
                     }
-                },
-                    Modifier.padding(horizontal = 36.dp)) {
-                    Text(text = stringResource(id = R.string.done), color = Color.White)
                 }
 
 
