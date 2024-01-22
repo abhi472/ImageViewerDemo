@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -32,8 +33,10 @@ import com.abhi.alleimageviewer.ui.theme.AlleImageViewerTheme
 import java.io.File
 
 @Composable
-fun PictureScreen(viewModel: MainViewModel,
-                  navController: NavController) {
+fun PictureScreen(
+    viewModel: MainViewModel,
+    navController: NavController,
+) {
 
     val state = viewModel.uiState.collectAsState().value
     AlleImageViewerTheme {

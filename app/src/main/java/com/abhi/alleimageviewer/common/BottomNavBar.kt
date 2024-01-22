@@ -2,6 +2,8 @@ package com.abhi.alleimageviewer.common
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -20,8 +22,9 @@ import com.abhi.alleimageviewer.screens.DetailScreen
 import com.abhi.alleimageviewer.screens.PictureScreen
 import com.abhi.alleimageviewer.states.Screens
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun BottomNavigationBar(viewModel: MainViewModel) {
+fun BottomNavigationBar(viewModel: MainViewModel, modalSheetState: ModalBottomSheetState) {
     val state = viewModel.uiState.collectAsState().value
 
     val navController = rememberNavController()
@@ -76,7 +79,8 @@ fun BottomNavigationBar(viewModel: MainViewModel) {
             composable(Screens.Details.route) {
                 DetailScreen(
                     viewModel,
-                    navController
+                    navController,
+                    modalSheetState
                 )
             }
         }

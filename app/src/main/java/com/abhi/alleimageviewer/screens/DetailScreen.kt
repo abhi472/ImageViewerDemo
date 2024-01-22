@@ -11,7 +11,11 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.InputChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -21,6 +25,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,12 +39,17 @@ import androidx.navigation.NavController
 import com.abhi.alleimageviewer.common.MainViewModel
 import com.abhi.alleimageviewer.R
 import com.abhi.alleimageviewer.ui.theme.AlleImageViewerTheme
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun DetailScreen(viewModel: MainViewModel,
-                 navController: NavController) {
+fun DetailScreen(
+    viewModel: MainViewModel,
+    navController: NavController,
+    modalSheetState: ModalBottomSheetState
+) {
 
+    val coroutineScope = rememberCoroutineScope()
     val state = viewModel.uiState.collectAsState().value
     val mlState = viewModel.mlState.collectAsState().value
 
@@ -81,6 +91,12 @@ fun DetailScreen(viewModel: MainViewModel,
                                     .padding(vertical = 18.dp)
                                     .clickable {
 
+                                        coroutineScope.launch {
+                                            if (modalSheetState.isVisible)
+                                                modalSheetState.hide()
+                                            else
+                                                modalSheetState.show()
+                                        }
 
                                     })
 
@@ -88,10 +104,16 @@ fun DetailScreen(viewModel: MainViewModel,
                     }
                     LazyRow(Modifier.padding(8.dp)) {
                         itemsIndexed(mlState.labelList) { index,item ->
-                            Text(item.text,
-                                fontWeight = FontWeight.Light,
-                                fontSize = 16.sp, modifier = Modifier.padding(10.dp),
-                                 style = TextStyle(background = Color.Yellow))
+                            InputChip(
+                                selected = true,
+                                onClick = {
+                                },
+                                label = {
+                                    Text(item.text,
+                                        fontWeight = FontWeight.Light,
+                                        fontSize = 16.sp, modifier = Modifier.padding(10.dp))
+                                }
+                            )
 
                         }
                     }

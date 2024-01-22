@@ -5,4 +5,6 @@
     <string name="collections">Collections</string>
     <string name="Description">Description</string>
     <string name="edit">Edit</string>
+    <string name="sel">Select an option or create one</string>
+    <string name="done">Done</string>
 </resources>

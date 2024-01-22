@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.abhi.alleimageviewer.AlleImageViewerApp
+import com.abhi.alleimageviewer.states.AppBottomSheetState
 import com.abhi.alleimageviewer.states.MLState
 import com.abhi.alleimageviewer.states.MediaState
 import com.abhi.alleimageviewer.usecase.ImageListUseCase
@@ -34,6 +35,9 @@ class MainViewModel @Inject constructor(
 
     private val _mlState = MutableStateFlow(MLState())
     val mlState: StateFlow<MLState> = _mlState.asStateFlow()
+
+    private val _bottomSheetState = MutableStateFlow(AppBottomSheetState())
+    val bottomSheetState: StateFlow<AppBottomSheetState> = _bottomSheetState.asStateFlow()
 
 
     init {
@@ -131,7 +135,13 @@ class MainViewModel @Inject constructor(
         )
     }
 
-
+    fun getMockList(): List<String> {
+        val list: ArrayList<String> = ArrayList()
+        for (i in 0..9) {
+            list.add("Lorem Ipsum")
+        }
+        return list
+    }
 
 
 }

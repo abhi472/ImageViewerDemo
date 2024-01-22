@@ -1,8 +1,10 @@
 package com.abhi.alleimageviewer.common
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
@@ -11,11 +13,22 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -25,27 +38,19 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             AlleImageViewerTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    featureThatRequiresStoragePermission(viewModel)
-
-                }
+                BottomSheetLayout(viewModel = viewModel)
             }
         }
 
@@ -53,48 +58,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalPermissionsApi::class,
-    ExperimentalPermissionsApi::class)
-@Composable
-fun featureThatRequiresStoragePermission(viewModel: MainViewModel) {
 
-    // Camera permission state
-    val cameraPermissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        rememberPermissionState(
-            android.Manifest.permission.READ_MEDIA_IMAGES
-        )
-    } else {
-        rememberPermissionState(permission =
-        android.Manifest.permission.READ_EXTERNAL_STORAGE
-        )
-    }
-
-    if (cameraPermissionState.status.isGranted) {
-        viewModel.loadData()
-        BottomNavigationBar(viewModel)
-    } else {
-        Column(   modifier = Modifier
-            .padding(32.dp)
-            .fillMaxWidth()
-            .fillMaxHeight(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center) {
-            val textToShow = if (cameraPermissionState.status.shouldShowRationale) {
-                // If the user has denied the permission but the rationale can be shown,
-                // then gently explain why the app requires this permission
-                "The camera is important for this app. Please grant the permission."
-            } else {
-                // If it's the first time the user lands on this feature, or the user
-                // doesn't want to be asked again for this permission, explain that the
-                // permission is required
-                "Camera permission required for this feature to be available. " +
-                        "Please grant the permission"
-            }
-
-            Text(textToShow)
-            Button(onClick = { cameraPermissionState.launchPermissionRequest() }) {
-                Text("Request permission")
-            }
-        }
-    }
-}
