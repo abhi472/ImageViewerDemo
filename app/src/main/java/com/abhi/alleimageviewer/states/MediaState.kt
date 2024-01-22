@@ -1,4 +1,4 @@
-package com.abhi.alleimageviewer
+package com.abhi.alleimageviewer.states
 
 import android.graphics.Bitmap
 import com.google.mlkit.vision.label.ImageLabel

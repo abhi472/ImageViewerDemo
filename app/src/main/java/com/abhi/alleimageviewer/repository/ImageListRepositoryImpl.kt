@@ -11,6 +11,15 @@ import java.io.File
 import javax.inject.Inject
 
 class ImageListRepositoryImpl @Inject constructor(): ImageListRepository {
+
+    /**
+     * In case one's device has a different path to Screenshots,
+     * replace Pictures and Screenshots accordingly, For eg.
+     * for my device the path is /storage/emulated/0/Pictures/Screenshot/....file
+     * one a different device I tested path was /storage/emulated/0/DCIM/Screenshot/
+     * so Pictures -> DCIM. For Production app we will need to either ask user for folder selection
+     * or we keep resolving a set of fullPath based on different devices.
+     * **/
     private val fullPath = File(
         Environment.getExternalStorageDirectory().absolutePath
             + File.separator

@@ -1,14 +1,14 @@
-package com.abhi.alleimageviewer
+package com.abhi.alleimageviewer.common
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.abhi.alleimageviewer.AlleImageViewerApp
+import com.abhi.alleimageviewer.states.MLState
+import com.abhi.alleimageviewer.states.MediaState
 import com.abhi.alleimageviewer.usecase.ImageListUseCase
 import com.abhi.alleimageviewer.usecase.ImageMlUseCase
 import com.google.mlkit.vision.label.ImageLabel
-import com.google.mlkit.vision.text.Text
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

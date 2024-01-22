@@ -1,4 +1,4 @@
-package com.abhi.alleimageviewer
+package com.abhi.alleimageviewer.states
 
 import com.google.mlkit.vision.label.ImageLabel
 import com.google.mlkit.vision.text.Text

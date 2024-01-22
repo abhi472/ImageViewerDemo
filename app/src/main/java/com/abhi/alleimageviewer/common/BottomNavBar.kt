@@ -1,4 +1,4 @@
-package com.abhi.alleimageviewer
+package com.abhi.alleimageviewer.common
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,6 +18,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.abhi.alleimageviewer.screens.DetailScreen
 import com.abhi.alleimageviewer.screens.PictureScreen
+import com.abhi.alleimageviewer.states.Screens
 
 @Composable
 fun BottomNavigationBar(viewModel: MainViewModel) {

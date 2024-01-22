@@ -1,9 +1,7 @@
-package com.abhi.alleimageviewer
+package com.abhi.alleimageviewer.common
 
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -18,13 +16,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModel
 import com.abhi.alleimageviewer.ui.theme.AlleImageViewerTheme
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -62,7 +56,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalPermissionsApi::class,
     ExperimentalPermissionsApi::class)
 @Composable
-fun featureThatRequiresStoragePermission(viewModel:MainViewModel) {
+fun featureThatRequiresStoragePermission(viewModel: MainViewModel) {
 
     // Camera permission state
     val cameraPermissionState = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

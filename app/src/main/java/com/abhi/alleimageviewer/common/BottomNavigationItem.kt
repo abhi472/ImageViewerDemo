@@ -1,12 +1,11 @@
-package com.abhi.alleimageviewer
+package com.abhi.alleimageviewer.common
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.abhi.alleimageviewer.states.Screens
 
 data class BottomNavigationItem(
     val label : String = "",
