@@ -44,6 +44,8 @@ fun BottomNavigationBar(viewModel: MainViewModel) {
                             )
                         },
                         onClick = {
+
+
                             if(state.files.isNotEmpty() && navigationItem.route == Screens.Details.route) {
                                 viewModel.loadLabels(state.files[state.selectedFile], navController.context)
                                 viewModel.loadOcr(state.files[state.selectedFile], navController.context)
