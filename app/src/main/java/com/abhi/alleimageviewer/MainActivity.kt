@@ -76,6 +76,7 @@ fun featureThatRequiresStoragePermission(viewModel:MainViewModel) {
     }
 
     if (cameraPermissionState.status.isGranted) {
+        viewModel.loadData()
         BottomNavigationBar(viewModel)
     } else {
         Column(   modifier = Modifier

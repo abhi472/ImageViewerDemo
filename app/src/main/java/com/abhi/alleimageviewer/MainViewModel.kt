@@ -40,7 +40,7 @@ class MainViewModel @Inject constructor(
         loadData()
     }
 
-    private fun loadData() {
+    fun loadData() {
 
 
         viewModelScope.launch {
